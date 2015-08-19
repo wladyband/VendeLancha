@@ -1,0 +1,173 @@
+<ui:composition template="/WEB-INF/template/LayoutSystem.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Noticias</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisaNoticia">
+			<h1>Pesquisa de Noticias</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisa"
+						action="#{pesquisaNoticiasBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/noticias/CadastroNoticias.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Titulo" for="titulo" />
+				<p:inputText id="titulo" size="20"
+					value="#{pesquisaNoticiasBean.filtro.titulo}" />
+
+
+				<p:outputLabel value="Data de criação" />
+				<h:panelGroup>
+					<p:calendar size="10" pattern="dd/MM/yyyy"
+						value="#{pesquisaNoticiasBean.filtro.dataNoticiaDe}" />
+	    			a
+	    			<p:calendar size="10" pattern="dd/MM/yyyy"
+						value="#{pesquisaNoticiasBean.filtro.dataNoticiaAte}" />
+				</h:panelGroup>
+
+			</p:panelGrid>
+
+
+			<!-- tentar configurar daqui para frente -->
+
+			<p:dataTable id="noticiaTable"
+				value="#{pesquisaNoticiasBean.noticiasFiltrados}" var="noticia"
+				style="margin-top: 20px" emptyMessage="Nenhum notícia encontrada."
+				rows="3" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Titulo"
+					style=" text-align:center; width: 100px">
+					<h:outputText value="#{noticia.titulo_noticia}" />
+				</p:column>
+				<p:column headerText="Data de criação"
+					style="text-align: center; width: 140px">
+					<h:outputText value="#{noticia.data_noticia}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Valor"
+					style="text-align: center; width: 140px">
+					<h:outputText value="#{noticia.preco}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</p:column>
+
+
+				<p:column headerText="Foto" style="text-align: center; width: 200px">
+					<h:graphicImage value="../ShowImg?nomeFoto=#{noticia.foto_noticia}" />
+				</p:column>
+				<p:column headerText="Descrição"
+					style=" text-align:center; width: 100px">
+					<h:outputText value="#{noticia.desc_noticia}" />
+				</p:column>
+
+				<p:column style="width: 100px; text-align: center">
+					<p:button outcome="/noticias/CadastroNoticias.xhtml"
+						icon="ui-icon-pencil" title="Editar">
+						<f:param name="noticia" value="#{noticia.id}" />
+					</p:button>
+
+
+					<p:commandButton icon="ui-icon-closethick" title="Excluir"
+						process="@this" update=":frmPesquisaNoticia:noticiaTable"
+						action="#{pesquisaNoticiasBean.excluir}">
+
+						<f:setPropertyActionListener
+							target="#{pesquisaNoticiasBean.noticiaSelecionada}"
+							value="#{noticia}" />
+
+						<p:confirm header="Confirmation"
+							message="Tem certeza que deseja excluir o produto #{pesquisaNoticiasBean.noticiaSelecionada.titulo_noticia} ?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+
+					<!-- 					<p:button outcome="/noticias/CarrinhoCompras.xhtml" icon="ui-icon-cart " title="Carrinho"> -->
+					<!-- 						<f:param name="noticia" value="#{noticia.id}" /> -->
+
+					<!-- 					</p:button> -->
+
+
+					<p:commandButton value="adicionar"
+						action="#{carrinhoComprasBean.adicionar}">
+						<f:setPropertyActionListener
+							target="#{carrinhoComprasBean.noticiaSelecionada}"
+							value="#{noticia}" />
+					</p:commandButton>
+
+
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="SIM" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="NÃO" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+
+<!-- <p:commandButton action="#{pesquisaNoticiasBean.excluir}" -->
+<!-- 						id="buttonColunaExcluir" ajax="false" immediate="true" -->
+<!-- 						partialSubmit="true" process="@this" update=":frmPesquisaNoticia" -->
+<!-- 						onfocus="addFocoAoCampo('titulo_noticia');" -->
+<!-- 						onclick="if(!confirm('Confirma a exclusão da entidade: #{pesquisaNoticiasBean.noticiaSelecionada.titulo_noticia}?')) return false;"> -->
+<!-- 						<h:graphicImage library="images" name="lixeira.png" -->
+<!-- 							styleClass="bordaImagem" /> -->
+<!-- 						<f:setPropertyActionListener -->
+<!-- 							target="#{pesquisaNoticiasBean.noticiaSelecionada}" -->
+<!-- 							value="#{noticia}" /> -->
+<!-- 					</p:commandButton> -->
+
+
+
+
+
+
+
+<!-- 					<p:commandButton icon="ui-icon-trash" title="Excluir" -->
+<!-- 						oncomplete="confirmacaoExclusao.show()" process="@this" -->
+<!-- 						update=":frmPesquisaNoticia:confirmacaoExclusaoDialog"> -->
+<!-- 						<f:setPropertyActionListener -->
+<!-- 							target="#{pesquisaNoticiasBean.noticiaSelecionada}" -->
+<!-- 							value="#{noticia}" /> -->
+<!-- 					</p:commandButton> -->
+
+
+
+
+<!-- 			<p:confirmDialog header="Exclusão de produto" -->
+<!-- 				message="Tem certeza que deseja excluir o produto #{pesquisaNoticiasBean.noticiaSelecionada.titulo_noticia}?" -->
+<!-- 				widgetVar="confirmacaoExclusao" id="confirmacaoExclusaoDialog"> -->
+<!-- 				<p:button value="Não" -->
+<!-- 					onclick="confirmacaoExclusao.hide(); return false;" /> -->
+<!-- 				<p:commandButton value="Sim" -->
+<!-- 					oncomplete="confirmacaoExclusao.hide();" -->
+<!-- 					action="#{pesquisaNoticiasBean.excluir}" process="@this" -->
+<!-- 					update=":frmPesquisaNoticia:noticiaTable" /> -->
+<!-- 			</p:confirmDialog> -->
+

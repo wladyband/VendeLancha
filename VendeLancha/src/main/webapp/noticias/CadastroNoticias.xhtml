@@ -1,0 +1,82 @@
+<ui:composition template="/WEB-INF/template/LayoutSystem.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:o="http://omnifaces.org/ui">
+
+
+
+	<!-- xmlns:h="http://java.sun.com/jsf/html" -->
+
+	<ui:define name="titulo">Novas Notícias</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+<!-- 			<o:viewParam name="noticia" value="#{cadastroNoticiaBean.noticia}"/> -->
+		</f:metadata>
+
+
+		<h:form id="form" enctype="multipart/form-data">
+			<h1>Novas Notícias</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" />
+					
+					
+					<h:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroNoticiaBean.salvar}" >
+						<f:ajax execute="@form" render="@all"/>
+					</h:commandButton>
+					
+				</p:toolbarGroup>
+
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa"
+						outcome="/noticias/PesquisaNoticias.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<div id="wrap">
+
+				<div class="left-sidebar">
+					<p:panelGrid columns="2" id="painel1"
+						style="width: 50%; margin-top: 20px" columnClasses="rotulo, campo">
+
+
+						<p:outputLabel value="Titulo" for="titulo" />
+						<p:inputText id="titulo" size="20" maxlength="50"
+							value="#{cadastroNoticiaBean.noticia.titulo_noticia}" />
+
+						<p:outputLabel value="Data" for="data_noticia" />
+						<p:calendar id="data_noticia" pattern="dd/MM/yyyy"
+							value="#{cadastroNoticiaBean.noticia.data_noticia}" />
+
+
+						<p:outputLabel value="Preço" for="preco" />
+						<p:inputText id="preco" size="20" maxlength="50"
+							value="#{cadastroNoticiaBean.noticia.preco}"   />
+
+
+						<p:outputLabel value="Descrição" for="descricao" />
+
+						<p:inputText id="descricao" size="20" maxlength="250"
+							value="#{cadastroNoticiaBean.noticia.desc_noticia}" />
+
+
+
+						<p:outputLabel value="Foto" />
+						<h:inputFile value="#{cadastroNoticiaBean.arquivo}"/>
+						
+
+					</p:panelGrid>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

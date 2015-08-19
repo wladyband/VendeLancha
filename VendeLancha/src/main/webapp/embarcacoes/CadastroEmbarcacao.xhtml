@@ -1,0 +1,179 @@
+<ui:composition template="/WEB-INF/template/LayoutSystem.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Nova Embarcação</ui:define>
+
+	<ui:define name="corpo">
+		<h:form>
+			<h1>Nova Embarcação</h1>
+
+			<p:messages autoUpdate="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo"
+						outcome="/embarcacoes/CadastroEmbarcacao.xhtml" />
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroEmbarcacaoBean.salvar}" ajax="false" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa"
+						outcome="/embarcacoes/PesquisaEmbarcacao.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<div id="wrap">
+
+				<div class="left-sidebar">
+					<!-- 					<p:panelGrid columns="2" id="painel1" -->
+					<!-- 						style="width: 50%; margin-top: 20px" columnClasses="rotulo, campo"> -->
+
+					<!-- 						<p:outputLabel value="Tipo" for="tipo" /> -->
+					<!-- 						<p:selectOneMenu id="tipo"> -->
+					<!-- 							<f:selectItem itemLabel="Selecione o tipo" /> -->
+					<!-- 						</p:selectOneMenu> -->
+
+					<!-- 						<p:outputLabel value="Marca" for="marca" /> -->
+					<!-- 						<p:selectOneMenu id="marca"> -->
+					<!-- 							<f:selectItem itemLabel="Selecione a marca" /> -->
+					<!-- 						</p:selectOneMenu> -->
+
+					<!-- 						<p:outputLabel value="Modelo" for="modelo" /> -->
+					<!-- 						<p:selectOneMenu id="modelo"> -->
+					<!-- 							<f:selectItem itemLabel="Selecione o modelo" /> -->
+					<!-- 						</p:selectOneMenu> -->
+
+					<!-- 						<p:outputLabel value="Preço" for="preco" /> -->
+					<!-- 						<p:inputText id="preco" size="20" maxlength="20" -->
+					<!-- 							styleClass="moeda" /> -->
+
+					<!-- 						<p:outputLabel value="Tamanho" for="tamanho" /> -->
+					<!-- 						<p:inputText id="tamanho" size="20" maxlength="20" /> -->
+
+					<!-- 						<p:outputLabel value="Tripulação" for="tripulacao" /> -->
+					<!-- 						<p:inputText id="tripulacao" size="20" maxlength="20" /> -->
+
+
+					<!-- 						<p:outputLabel value="Ano de Fabrica" for="anofabrica" /> -->
+					<!-- 						<p:inputText id="anofabrica" size="20" maxlength="20" /> -->
+
+					<!-- 						<h:panelGroup> -->
+
+					<!-- 							<p:fileUpload mode="simple" skinSimple="true" /> -->
+
+					<!-- 							<p:commandButton value="Submit" ajax="false" disabled="true" /> -->
+					<!-- 						</h:panelGroup> -->
+
+					<!-- 					</p:panelGrid> -->
+
+					<p:panelGrid id="painel1" style="width: 50%; margin-top: 20px">
+
+						<p:row>
+							<p:column style="width: 90px;">
+								<p:outputLabel value="Tipo" for="tipo" />
+							</p:column>
+							<p:column>
+								<p:selectOneMenu id="tipo">
+									<f:selectItem itemLabel="Selecione o tipo" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:outputLabel value="Marca" for="marca" />
+							</p:column>
+							<p:column>
+								<p:selectOneMenu id="marca">
+									<f:selectItem itemLabel="Selecione a marca" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:outputLabel value="Modelo" for="modelo" />
+							</p:column>
+							<p:column>
+								<p:selectOneMenu id="modelo">
+									<f:selectItem itemLabel="Selecione o modelo" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:outputLabel value="Preço" for="preco" />
+							</p:column>
+							<p:column>
+								<p:inputText id="preco" size="20" maxlength="20" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:outputLabel value="Tamanho" for="tamanho" />
+							</p:column>
+							<p:column>
+								<p:inputText id="tamanho" size="20" maxlength="20" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:outputLabel value="Tripulação" for="tripulacao" />
+							</p:column>
+							<p:column>
+								<p:inputText id="tripulacao" size="20" maxlength="20" />
+							</p:column>
+						</p:row>
+						<!-- 						<p:outputLabel value="Tripulação" for="tripulacao" /> -->
+						<!-- 						<p:inputText id="tripulacao" size="20" maxlength="20" /> -->
+
+						<p:row>
+							<p:column>
+								<p:outputLabel value="Ano de Fabrica" for="anofabrica" />
+
+							</p:column>
+							<p:column>
+								<p:inputText id="anofabrica" size="20" maxlength="20" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</div>
+
+
+				<div class="right-sidebar">
+					<p:panelGrid columns="2" id="painel2"
+						style="width: 50%; margin-top: 20px" columnClasses="linha, coluna">
+
+						<p:outputLabel value="Descrição" for="descembarcacao" />
+						<p:inputText id="descembarcacao" size="60" maxlength="80" />
+
+						<p:outputLabel value="Motorização" for="motorizacao" />
+						<p:inputText id="motorizacao" size="60" maxlength="80" />
+
+
+						<p:outputLabel value="Equipamentos" for="equipamentos" />
+						<p:inputText id="equipamentos" size="60" maxlength="80" />
+
+						<p:outputLabel value="Equipamentos Eletronicos" for="eg" />
+						<p:inputText id="eg" size="60" maxlength="80" />
+
+
+					</p:panelGrid>
+
+				</div>
+
+
+			</div>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

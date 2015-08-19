@@ -1,0 +1,75 @@
+<ui:composition template="/WEB-INF/template/LayoutSystem.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Noticias</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="dymmi" />
+			<f:event listener="#{carrinhoComprasBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<h:form id="frmPesquisaNoticia">
+			<h1>Pesquisa de Noticias</h1>
+
+			<p:dataTable id="noticiaTable"
+				value="#{carrinhoComprasBean.noticiaSelecionada}" var="noticia"
+				style="margin-top: 20px" emptyMessage="Nenhum notícia encontrada."
+				rows="3" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom">
+
+
+
+				<p:column headerText="Titulo"
+					style=" text-align:center; width: 100px">
+					<h:outputText value="#{noticia.titulo_noticia}" />
+				</p:column>
+
+				<p:column headerText="Data de criação"
+					style="text-align: center; width: 140px">
+					<h:outputText value="#{noticia.data_noticia}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Foto" style="text-align: center; width: 200px">
+					<h:graphicImage value="../ShowImg?nomeFoto=#{noticia.foto_noticia}" />
+				</p:column>
+
+				<p:column headerText="Descrição"
+					style=" text-align:center; width: 100px">
+					<h:outputText value="#{noticia.desc_noticia}" />
+				</p:column>
+
+<!-- 				<p:column style="width: 100px; text-align: center"> -->
+<!-- 					<p:button outcome="/noticias/CadastroNoticias.xhtml" -->
+<!-- 						icon="ui-icon-pencil" title="Editar"> -->
+<!-- 						<f:param name="noticia" value="#{noticia.id}" /> -->
+<!-- 					</p:button> -->
+
+<!-- 					<p:commandButton icon="ui-icon-closethick" title="Excluir" -->
+<!-- 						process="@this" update=":frmPesquisaNoticia:noticiaTable" -->
+<!-- 						action="#{pesquisaNoticiasBean.excluir}"> -->
+
+<!-- 						<f:setPropertyActionListener -->
+<!-- 							target="#{pesquisaNoticiasBean.noticiaSelecionada}" -->
+<!-- 							value="#{noticia}" /> -->
+
+<!-- 						<p:confirm header="Confirmation" -->
+<!-- 							message="Tem certeza que deseja excluir o produto #{pesquisaNoticiasBean.noticiaSelecionada.titulo_noticia} ?" -->
+<!-- 							icon="ui-icon-alert" /> -->
+<!-- 					</p:commandButton> -->
+
+<!-- 				</p:column> -->
+			</p:dataTable>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

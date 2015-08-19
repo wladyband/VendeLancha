@@ -1,0 +1,72 @@
+<ui:composition template="/WEB-INF/template/LayoutSystem.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa Embarcação</ui:define>
+
+	<ui:define name="corpo">
+		<h:form>
+			<h1>Pesquisa Embarcação</h1>
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisa" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo"
+						outcome="/embarcacoes/CadastroEmbarcacao.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		
+	    		<p:outputLabel value="Tipo" for="tipo"/>
+	    		<p:inputText id="tipo" size="20" />
+	    		
+	    			
+	    		<p:outputLabel value="Modelo" for="modelo"/>
+	    		<p:inputText id="modelo" size="20" />
+	    		
+	    		<p:outputLabel value="Marca" for="marca"/>
+	    		<p:inputText id="marca" size="60" />
+	    	</p:panelGrid>
+	    	
+	    	
+	    	
+	    	<p:dataTable id="embarcacaoTable" value="#{pesquisaEmbarcacoesBean.embarcacaoFiltrados}" var="embarcaoes"
+	    		style="margin-top: 20px" emptyMessage="Nenhum embarcação encontrado." rows="3"
+	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		
+	    		<p:column headerText="Tipo" style="text-align: center; width: 100px">
+	    			<h:outputText value="Jet Ski" />
+	    		</p:column>
+	    		<p:column headerText="Marca">
+	    			<h:outputText value="Yamaha" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="Modelo">
+	    			<h:outputText value="Yamaha VX Cruiser" />
+	    		</p:column>
+	    		
+	    		
+	    		<p:column headerText="Valor" style="text-align: right; width: 120px">
+	    			<h:outputText value="R$ 31.720,00" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="Foto" style="text-align: center; width: 100px">
+	    			<h:outputText value="Nenhuma Imagem encontrada" />
+	    		</p:column>
+	    		
+	    		<p:column style="width: 100px; text-align: center">
+	    			<p:button icon="ui-icon-pencil" title="Editar" />
+	    			<p:commandButton icon="ui-icon-trash" title="Excluir" />
+	    		</p:column>
+	    	</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
